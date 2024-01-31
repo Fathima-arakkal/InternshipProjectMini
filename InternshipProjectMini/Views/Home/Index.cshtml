@@ -1,16 +1,37 @@
-﻿@{
+﻿@model HomeViewModel
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
 <div class="text-center">
-  
     <h1>Welcome to the Home Page!</h1>
-    
-    <a asp-controller="Locations" asp-action="Index">Locations</a><br />
-    <a asp-controller="Departments" asp-action="Index">Departments</a><br />
-    <a asp-controller="Employees" asp-action="Index">Employees</a><br />
-    <a asp-controller="Machines" asp-action="Index">Machines</a>
-    
 
+    @if (Model.EmployeePermission)
+    {
+        <a asp-controller="Employees" asp-action="Index">Employees</a>
 
+        <br />
+    }
+
+    @if (Model.DepartmentPermission)
+    {
+        <a asp-controller="Departments" asp-action="Index">Departments</a>
+
+        <br />
+    }
+
+    @if (Model.MachinePermission)
+    {
+        <a asp-controller="Machines" asp-action="Index">Machines</a>
+
+        <br />
+    }
+
+    @if (Model.LocationPermission)
+    {
+        <a asp-controller="Locations" asp-action="Index">Locations</a>
+
+        <br />
+    }
 </div>

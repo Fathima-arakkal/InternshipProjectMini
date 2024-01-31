@@ -67,6 +67,10 @@ namespace InternshipProjectMini.Migrations
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("SelectedPermissions")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("bit");
 
@@ -211,60 +215,24 @@ namespace InternshipProjectMini.Migrations
                     b.ToTable("Machines");
                 });
 
-            modelBuilder.Entity("InternshipProjectMini.Models.Module", b =>
+            modelBuilder.Entity("InternshipProjectMini.Models.UserPermissions", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Modules");
-                });
-
-            modelBuilder.Entity("InternshipProjectMini.Models.ModuleViewModel", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<bool>("IsSelected")
+                    b.Property<bool>("Department")
                         .HasColumnType("bit");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<bool>("Employee")
+                        .HasColumnType("bit");
 
-                    b.HasKey("Id");
+                    b.Property<bool>("Location")
+                        .HasColumnType("bit");
 
-                    b.ToTable("ModuleViewModels");
-                });
+                    b.Property<bool>("Machine")
+                        .HasColumnType("bit");
 
-            modelBuilder.Entity("InternshipProjectMini.Models.UserPermission", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("AllowedModulesJson")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
+                    b.HasKey("UserId");
 
                     b.ToTable("UserPermissions");
                 });
@@ -424,6 +392,17 @@ namespace InternshipProjectMini.Migrations
                     b.Navigation("Location");
                 });
 
+            modelBuilder.Entity("InternshipProjectMini.Models.UserPermissions", b =>
+                {
+                    b.HasOne("InternshipProjectMini.Models.ApplicationUser", "User")
+                        .WithOne("UserPermissions")
+                        .HasForeignKey("InternshipProjectMini.Models.UserPermissions", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -472,6 +451,12 @@ namespace InternshipProjectMini.Migrations
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("InternshipProjectMini.Models.ApplicationUser", b =>
+                {
+                    b.Navigation("UserPermissions")
                         .IsRequired();
                 });
 #pragma warning restore 612, 618

@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InternshipProjectMini.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240130094905_InitialMigration")]
+    [Migration("20240131121827_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
@@ -68,6 +68,10 @@ namespace InternshipProjectMini.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("SecurityStamp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SelectedPermissions")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("TwoFactorEnabled")
@@ -212,6 +216,28 @@ namespace InternshipProjectMini.Migrations
                     b.HasIndex("LocationId");
 
                     b.ToTable("Machines");
+                });
+
+            modelBuilder.Entity("InternshipProjectMini.Models.UserPermissions", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<bool>("Department")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("Employee")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("Location")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("Machine")
+                        .HasColumnType("bit");
+
+                    b.HasKey("UserId");
+
+                    b.ToTable("UserPermissions");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -369,6 +395,17 @@ namespace InternshipProjectMini.Migrations
                     b.Navigation("Location");
                 });
 
+            modelBuilder.Entity("InternshipProjectMini.Models.UserPermissions", b =>
+                {
+                    b.HasOne("InternshipProjectMini.Models.ApplicationUser", "User")
+                        .WithOne("UserPermissions")
+                        .HasForeignKey("InternshipProjectMini.Models.UserPermissions", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -417,6 +454,12 @@ namespace InternshipProjectMini.Migrations
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("InternshipProjectMini.Models.ApplicationUser", b =>
+                {
+                    b.Navigation("UserPermissions")
                         .IsRequired();
                 });
 #pragma warning restore 612, 618

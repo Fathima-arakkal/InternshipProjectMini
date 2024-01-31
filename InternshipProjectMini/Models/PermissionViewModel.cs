@@ -6,6 +6,8 @@
         public bool Department { get; set; }
         public bool Machine { get; set; }
         public bool Location { get; set; }
+
+        public string SelectedPermissions { get; set; }
     }
 
 }

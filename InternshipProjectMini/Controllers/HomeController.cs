@@ -1,36 +1,28 @@
 using InternshipProjectMini.Models;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
+using Newtonsoft.Json;
 
-namespace InternshipProjectMini.Controllers
+public class HomeController : Controller
 {
-    public class HomeController : Controller
+    public IActionResult Index(string permissions)
     {
-        private readonly ILogger<HomeController> _logger;
+        var model = new HomeViewModel();
 
-        public HomeController(ILogger<HomeController> logger)
+        if (!string.IsNullOrEmpty(permissions))
         {
-            _logger = logger;
+            var deserializedPermissions = DeserializePermissions(permissions);
+
+            model.EmployeePermission = deserializedPermissions.Employee;
+            model.DepartmentPermission = deserializedPermissions.Department;
+            model.MachinePermission = deserializedPermissions.Machine;
+            model.LocationPermission = deserializedPermissions.Location;
         }
 
-        public IActionResult Index()
-        {
-            return View();
-        }
+        return View(model);
+    }
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
-       
-
-
+    private PermissionViewModel DeserializePermissions(string permissions)
+    {
+        return JsonConvert.DeserializeObject<PermissionViewModel>(permissions);
     }
 }
