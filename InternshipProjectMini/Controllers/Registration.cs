@@ -29,12 +29,17 @@ namespace InternshipProjectMini.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Username, Email = model.Username };
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
                 var result = await _userManager.CreateAsync(user, model.Password);
 
                 if (result.Succeeded)
                 {
-                    await _signInManager.SignInAsync(user, isPersistent: false);
+                    // Check if the user is already signed in before attempting to sign them in again
+                    if (!_signInManager.IsSignedIn(User))
+                    {
+                        await _signInManager.SignInAsync(user, isPersistent: false);
+                    }
+
                     return RedirectToAction("Index", "Home");
                 }
 

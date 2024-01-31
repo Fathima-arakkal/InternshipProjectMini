@@ -24,8 +24,7 @@ namespace InternshipProjectMini.Context
         public DbSet<Department> Departments { get; set; }
         public DbSet<Location> Locations { get; set; }
         public DbSet<Machine> Machines { get; set; }
-        public DbSet<Module> Modules { get; set; }
-        public DbSet<UserPermission> UserPermissions { get; set; }
+        
         
     }
 }

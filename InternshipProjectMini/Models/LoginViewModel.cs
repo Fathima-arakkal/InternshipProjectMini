@@ -1,14 +1,13 @@
 ﻿using System.ComponentModel.DataAnnotations;
+
 namespace InternshipProjectMini.Models
 {
-  
-
     public class LoginViewModel
     {
         [Required]
         [EmailAddress]
-        [Display(Name = "Username")]
-        public string Username { get; set; }
+        [Display(Name = "Email")]
+        public string Email { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
@@ -18,5 +17,4 @@ namespace InternshipProjectMini.Models
         [Display(Name = "Remember me")]
         public bool RememberMe { get; set; }
     }
-
 }

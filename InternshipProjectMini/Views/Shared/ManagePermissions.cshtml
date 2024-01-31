@@ -1,0 +1,27 @@
+﻿@model PermissionViewModel
+
+<form asp-controller="Account" asp-action="ManagePermissions" method="post">
+    @Html.AntiForgeryToken()
+
+    <label>
+        <input type="checkbox" asp-for="Employee" />
+        Employee
+    </label>
+
+    <label>
+        <input type="checkbox" asp-for="Department" />
+        Department
+    </label>
+
+    <label>
+        <input type="checkbox" asp-for="Machine" />
+        Machine
+    </label>
+
+    <label>
+        <input type="checkbox" asp-for="Location" />
+        Location
+    </label>
+
+    <button type="submit">Save Permissions</button>
+</form>
