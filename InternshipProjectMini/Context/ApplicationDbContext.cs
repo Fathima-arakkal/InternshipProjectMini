@@ -16,6 +16,8 @@ namespace InternshipProjectMini.Context
         public DbSet<Location> Locations { get; set; }
         public DbSet<Machine> Machines { get; set; }
         public DbSet<UserPermissions> UserPermissions { get; set; }
+        public DbSet<Role> Roles { get; set; }
+        public DbSet<User> Users {  get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

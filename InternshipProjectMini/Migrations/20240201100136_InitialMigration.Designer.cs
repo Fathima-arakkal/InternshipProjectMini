@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InternshipProjectMini.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240131121827_InitialMigration")]
+    [Migration("20240201100136_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
@@ -141,14 +141,6 @@ namespace InternshipProjectMini.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Username")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("EmployeeId");
 
                     b.HasIndex("DepartmentId");
@@ -216,6 +208,71 @@ namespace InternshipProjectMini.Migrations
                     b.HasIndex("LocationId");
 
                     b.ToTable("Machines");
+                });
+
+            modelBuilder.Entity("InternshipProjectMini.Models.Role", b =>
+                {
+                    b.Property<string>("RoleId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<bool>("CanAccessDepartment")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("CanAccessEmployee")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("CanAccessLocation")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("CanAccessMachine")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("RoleName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("RoleId");
+
+                    b.ToTable("Roles");
+                });
+
+            modelBuilder.Entity("InternshipProjectMini.Models.User", b =>
+                {
+                    b.Property<int>("UserId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserId"));
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RoleId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Username")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("UserId");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("InternshipProjectMini.Models.UserPermissions", b =>
@@ -393,6 +450,17 @@ namespace InternshipProjectMini.Migrations
                         .IsRequired();
 
                     b.Navigation("Location");
+                });
+
+            modelBuilder.Entity("InternshipProjectMini.Models.User", b =>
+                {
+                    b.HasOne("InternshipProjectMini.Models.Role", "Role")
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Role");
                 });
 
             modelBuilder.Entity("InternshipProjectMini.Models.UserPermissions", b =>
