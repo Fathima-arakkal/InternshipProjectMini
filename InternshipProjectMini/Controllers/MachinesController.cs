@@ -95,8 +95,7 @@ namespace InternshipProjectMini
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
-            {
+           
                 try
                 {
                     _context.Update(machine);
@@ -114,7 +113,7 @@ namespace InternshipProjectMini
                     }
                 }
                 return RedirectToAction(nameof(Index));
-            }
+            
             ViewData["LocationId"] = new SelectList(_context.Locations, "LocationId", "LocationId", machine.LocationId);
             return View(machine);
         }

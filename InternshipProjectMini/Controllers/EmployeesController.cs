@@ -97,8 +97,7 @@ namespace InternshipProjectMini.Controllers
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
-            {
+            
                 try
                 {
                     _context.Update(employee);
@@ -116,7 +115,7 @@ namespace InternshipProjectMini.Controllers
                     }
                 }
                 return RedirectToAction(nameof(Index));
-            }
+            
             ViewData["DepartmentId"] = new SelectList(_context.Departments, "DepartmentId", "DepartmentId", employee.DepartmentId);
             return View(employee);
         }
