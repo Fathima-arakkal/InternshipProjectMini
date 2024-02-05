@@ -4,24 +4,55 @@
 
 @if (SignInManager.IsSignedIn(User))
 {
-<form asp-controller="Account" asp-action="Logout" method="post" id="logoutForm" class="navbar-right">
-    <ul class="nav navbar-nav navbar-right">
-        <li>
-            <a asp-controller="Manage" asp-action="Index" title="Manage">Hello @UserManager.GetUserName(User)!</a>
-        </li>
-        <li>
-            <button type="submit" class="btn btn-link navbar-btn navbar-link">Logout</button>
-        </li>
-    </ul>
-    @Html.AntiForgeryToken()
-</form>
+    var user = await UserManager.GetUserAsync(User);
+
+    if (user != null)
+    {
+        var roles = await UserManager.GetRolesAsync(user);
+
+        <form asp-controller="Account" asp-action="Logout" method="post" id="logoutForm" class="navbar-right">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a asp-controller="Manage" asp-action="Index" title="Manage">Hello @UserManager.GetUserName(User)!</a>
+                </li>
+                <li>
+                    <button type="submit" class="btn btn-link navbar-btn navbar-link">Logout</button>
+                </li>
+            </ul>
+            @Html.AntiForgeryToken()
+        </form>
+
+        <p>Hello, @User.Identity.Name!</p>
+        <p>Your role(s): @string.Join(", ", roles)</p>
+
+        <!-- Display links/buttons based on user role -->
+        @if (User.IsInRole("Administrator"))
+        {
+            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="AdministratorPage">Administrator Page</a>
+        }
+
+        @if (User.IsInRole("Developer"))
+        {
+            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="DeveloperPage">Developer Page</a>
+        }
+
+        @if (User.IsInRole("Manager"))
+        {
+            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="ManagerPage">Manager Page</a>
+        }
+
+        @if (User.IsInRole("Maintainer"))
+        {
+            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="MaintainerPage">Maintainer Page</a>
+        }
+    }
 }
 else
 {
-<form asp-controller="Account" asp-action="Login" method="get" class="navbar-form navbar-right">
-    <ul class="nav navbar-nav navbar-right">
-        <li><a asp-controller="Account" asp-action="Register">Register</a></li>
-        <li><a asp-controller="Account" asp-action="Login">Log in</a></li>
-    </ul>
-</form>
+    <form asp-controller="Account" asp-action="Login" method="get" class="navbar-form navbar-right">
+        <ul class="nav navbar-nav navbar-right">
+            <li><a asp-controller="Account" asp-action="Register">Register</a></li>
+            <li><a asp-controller="Account" asp-action="Login">Log in</a></li>
+        </ul>
+    </form>
 }

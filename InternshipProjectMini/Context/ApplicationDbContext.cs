@@ -18,7 +18,9 @@ namespace InternshipProjectMini.Context
         public DbSet<UserPermissions> UserPermissions { get; set; }
         public DbSet<RoleViewModel> RoleViewModel { get; set; }
         public DbSet<UserViewModel> UserViewModel { get; set; }
-     
+        public DbSet<UserPermissionViewModel> UserPermissionViewModel { get; set; }
+        public DbSet<RolePermission> RolePermission { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

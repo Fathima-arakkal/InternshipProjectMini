@@ -1,4 +1,5 @@
 using InternshipProjectMini.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
@@ -33,6 +34,34 @@ public class HomeController : Controller
 
         // Redirect to the desired page after changing the role
         return RedirectToAction("Index", "Home");
+    }
+    [Authorize(Roles = "Administrator")]
+    public IActionResult AdministratorPage()
+    {
+        return View();
+    }
+
+    [Authorize(Roles = "Developer")]
+    public IActionResult DeveloperPage()
+    {
+        return View();
+    }
+
+    [Authorize(Roles = "Manager")]
+    public IActionResult ManagerPage()
+    {
+        return View();
+    }
+
+    [Authorize(Roles = "Maintainer")]
+    public IActionResult MaintainerPage()
+    {
+        return View();
+    }
+
+    public IActionResult AccessDenied()
+    {
+        return View();
     }
 
 }

@@ -19,11 +19,6 @@ namespace InternshipProjectMini.Models
         public virtual RoleViewModel Role { get; set; }
         [Display(Name = "Role")]
         public string RoleId { get; set; }
-
-
-        
-        
-
         public bool EmployeeAccess { get; set; }
         public bool LocationAccess { get; set; }
         public bool MachineAccess { get; set; }

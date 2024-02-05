@@ -38,7 +38,7 @@
                     </ul>
 
                 </div>
-                <div class="role-selector">
+               @*  <div class="role-selector">
                     <label for="roleDropdown">Select Role:</label>
                     <select id="roleDropdown" onchange="changeRole()">
                         <option value="Administrator">Administrator</option>
@@ -47,7 +47,7 @@
                         <option value="Maintainer">Maintainer</option>
                         <!-- Add more roles as needed -->
                     </select>
-                </div>
+                </div> *@
             </div>
         </nav>
     </header>
@@ -62,17 +62,7 @@
             &copy; 2024 - InternshipProjectMini - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
-    <script>
-        function changeRole() {
-            var selectedRole = document.getElementById("roleDropdown").value;
-
-            // You can customize this URL based on your routing
-            var redirectUrl = '/Home/ChangeRole?role=' + selectedRole;
-
-            // Redirect to the action that will handle role change
-            window.location.href = redirectUrl;
-        }
-    </script>
+ 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

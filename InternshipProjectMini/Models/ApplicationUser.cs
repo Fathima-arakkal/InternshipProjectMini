@@ -8,6 +8,8 @@ namespace InternshipProjectMini.Models
         public string SelectedPermissions { get; set; }
 
         public virtual UserPermissions UserPermissions { get; set; }
+
+       
         
     }
 }
