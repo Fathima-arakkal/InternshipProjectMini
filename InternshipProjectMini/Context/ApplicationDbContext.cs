@@ -18,7 +18,7 @@ namespace InternshipProjectMini.Context
         public DbSet<UserPermissions> UserPermissions { get; set; }
         public DbSet<RoleViewModel> RoleViewModel { get; set; }
         public DbSet<UserViewModel> UserViewModel { get; set; }
-
+     
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -32,6 +32,8 @@ namespace InternshipProjectMini.Context
                 .WithOne(u => u.UserPermissions)
                 .HasForeignKey<UserPermissions>(up => up.UserId)
                 .OnDelete(DeleteBehavior.Cascade);
+
+          
         }
   
     }
