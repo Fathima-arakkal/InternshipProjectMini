@@ -1,4 +1,4 @@
-﻿@model IEnumerable<InternshipProjectMini.Models.User>
+﻿@model IEnumerable<InternshipProjectMini.Models.UserViewModel>
 
 @{
     ViewData["Title"] = "Index";
@@ -30,6 +30,18 @@
             <th>
                 @Html.DisplayNameFor(model => model.Role)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EmployeeAccess)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LocationAccess)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MachineAccess)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DepartmentAccess)
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -52,7 +64,19 @@
                 @Html.DisplayFor(modelItem => item.Password)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Role.RoleId)
+                @Html.DisplayFor(modelItem => item.Role.RoleName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EmployeeAccess)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LocationAccess)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MachineAccess)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DepartmentAccess)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.UserId">Edit</a> |

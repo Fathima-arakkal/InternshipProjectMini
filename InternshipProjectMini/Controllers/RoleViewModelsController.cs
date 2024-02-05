@@ -10,23 +10,22 @@ using InternshipProjectMini.Models;
 
 namespace InternshipProjectMini.Controllers
 {
-    public class RolesController : Controller
+    public class RoleViewModelsController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public RolesController(ApplicationDbContext context)
+        public RoleViewModelsController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: Roles
+        // GET: RoleViewModels
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Roles.ToListAsync());
-           
+            return View(await _context.RoleViewModel.ToListAsync());
         }
 
-        // GET: Roles/Details/5
+        // GET: RoleViewModels/Details/5
         public async Task<IActionResult> Details(string id)
         {
             if (id == null)
@@ -34,39 +33,39 @@ namespace InternshipProjectMini.Controllers
                 return NotFound();
             }
 
-            var role = await _context.Roles
+            var roleViewModel = await _context.RoleViewModel
                 .FirstOrDefaultAsync(m => m.RoleId == id);
-            if (role == null)
+            if (roleViewModel == null)
             {
                 return NotFound();
             }
 
-            return View(role);
+            return View(roleViewModel);
         }
 
-        // GET: Roles/Create
+        // GET: RoleViewModels/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Roles/Create
+        // POST: RoleViewModels/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("RoleId,RoleName,CanAccessMachine,CanAccessDepartment,CanAccessEmployee,CanAccessLocation")] Role role)
+        public async Task<IActionResult> Create([Bind("RoleId,RoleName,Employee,Location,Machine,Department")] RoleViewModel roleViewModel)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(role);
+                _context.Add(roleViewModel);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(role);
+            return View(roleViewModel);
         }
 
-        // GET: Roles/Edit/5
+        // GET: RoleViewModels/Edit/5
         public async Task<IActionResult> Edit(string id)
         {
             if (id == null)
@@ -74,22 +73,22 @@ namespace InternshipProjectMini.Controllers
                 return NotFound();
             }
 
-            var role = await _context.Roles.FindAsync(id);
-            if (role == null)
+            var roleViewModel = await _context.RoleViewModel.FindAsync(id);
+            if (roleViewModel == null)
             {
                 return NotFound();
             }
-            return View(role);
+            return View(roleViewModel);
         }
 
-        // POST: Roles/Edit/5
+        // POST: RoleViewModels/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("RoleId,RoleName,CanAccessMachine,CanAccessDepartment,CanAccessEmployee,CanAccessLocation")] Role role)
+        public async Task<IActionResult> Edit(string id, [Bind("RoleId,RoleName,Employee,Location,Machine,Department")] RoleViewModel roleViewModel)
         {
-            if (id != role.RoleId)
+            if (id != roleViewModel.RoleId)
             {
                 return NotFound();
             }
@@ -98,12 +97,12 @@ namespace InternshipProjectMini.Controllers
             {
                 try
                 {
-                    _context.Update(role);
+                    _context.Update(roleViewModel);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!RoleExists(role.RoleId))
+                    if (!RoleViewModelExists(roleViewModel.RoleId))
                     {
                         return NotFound();
                     }
@@ -114,10 +113,10 @@ namespace InternshipProjectMini.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(role);
+            return View(roleViewModel);
         }
 
-        // GET: Roles/Delete/5
+        // GET: RoleViewModels/Delete/5
         public async Task<IActionResult> Delete(string id)
         {
             if (id == null)
@@ -125,34 +124,34 @@ namespace InternshipProjectMini.Controllers
                 return NotFound();
             }
 
-            var role = await _context.Roles
+            var roleViewModel = await _context.RoleViewModel
                 .FirstOrDefaultAsync(m => m.RoleId == id);
-            if (role == null)
+            if (roleViewModel == null)
             {
                 return NotFound();
             }
 
-            return View(role);
+            return View(roleViewModel);
         }
 
-        // POST: Roles/Delete/5
+        // POST: RoleViewModels/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
-            var role = await _context.Roles.FindAsync(id);
-            if (role != null)
+            var roleViewModel = await _context.RoleViewModel.FindAsync(id);
+            if (roleViewModel != null)
             {
-                _context.Roles.Remove(role);
+                _context.RoleViewModel.Remove(roleViewModel);
             }
 
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool RoleExists(string id)
+        private bool RoleViewModelExists(string id)
         {
-            return _context.Roles.Any(e => e.RoleId == id);
+            return _context.RoleViewModel.Any(e => e.RoleId == id);
         }
     }
 }

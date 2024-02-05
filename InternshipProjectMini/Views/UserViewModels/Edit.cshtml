@@ -1,4 +1,6 @@
-﻿@model InternshipProjectMini.Models.User
+﻿@using Microsoft.AspNetCore.Mvc.Rendering
+
+@model InternshipProjectMini.Models.UserViewModel
 
 @{
     ViewData["Title"] = "Edit";
@@ -6,7 +8,7 @@
 
 <h1>Edit</h1>
 
-<h4>User</h4>
+<h4>UserViewModel</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -42,6 +44,26 @@
                 <label asp-for="RoleId" class="control-label"></label>
                 <select asp-for="RoleId" class="form-control" asp-items="ViewBag.RoleId"></select>
                 <span asp-validation-for="RoleId" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="EmployeeAccess" /> @Html.DisplayNameFor(model => model.EmployeeAccess)
+                </label>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="LocationAccess" /> @Html.DisplayNameFor(model => model.LocationAccess)
+                </label>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="MachineAccess" /> @Html.DisplayNameFor(model => model.MachineAccess)
+                </label>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="DepartmentAccess" /> @Html.DisplayNameFor(model => model.DepartmentAccess)
+                </label>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />

@@ -4,6 +4,7 @@ using InternshipProjectMini.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InternshipProjectMini.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240202054302_Modified")]
+    partial class Modified
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -230,7 +233,7 @@ namespace InternshipProjectMini.Migrations
 
                     b.HasKey("RoleId");
 
-                    b.ToTable("RoleViewModel");
+                    b.ToTable("Roles");
                 });
 
             modelBuilder.Entity("InternshipProjectMini.Models.UserPermissions", b =>
@@ -263,21 +266,9 @@ namespace InternshipProjectMini.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserId"));
 
-                    b.Property<bool>("DepartmentAccess")
-                        .HasColumnType("bit");
-
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("EmployeeAccess")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("LocationAccess")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("MachineAccess")
-                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -303,7 +294,7 @@ namespace InternshipProjectMini.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("UserViewModel");
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

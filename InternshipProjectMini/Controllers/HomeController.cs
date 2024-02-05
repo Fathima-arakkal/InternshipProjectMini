@@ -25,4 +25,14 @@ public class HomeController : Controller
     {
         return JsonConvert.DeserializeObject<PermissionViewModel>(permissions);
     }
+    
+    public IActionResult ChangeRole(string role)
+    {
+        
+        HttpContext.Session.SetString("UserRole", role);
+
+        // Redirect to the desired page after changing the role
+        return RedirectToAction("Index", "Home");
+    }
+
 }

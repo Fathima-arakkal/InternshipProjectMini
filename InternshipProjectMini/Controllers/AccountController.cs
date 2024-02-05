@@ -167,5 +167,7 @@ namespace InternshipProjectMini.Controllers
 
             return JsonConvert.SerializeObject(permissions);
         }
+
+
     }
 }

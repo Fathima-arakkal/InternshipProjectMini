@@ -4,6 +4,7 @@ using InternshipProjectMini.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InternshipProjectMini.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240202052848_UpdateDatabases")]
+    partial class UpdateDatabases
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -207,21 +210,21 @@ namespace InternshipProjectMini.Migrations
                     b.ToTable("Machines");
                 });
 
-            modelBuilder.Entity("InternshipProjectMini.Models.RoleViewModel", b =>
+            modelBuilder.Entity("InternshipProjectMini.Models.Role", b =>
                 {
                     b.Property<string>("RoleId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<bool>("Department")
+                    b.Property<bool>("CanAccessDepartment")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("Employee")
+                    b.Property<bool>("CanAccessEmployee")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("Location")
+                    b.Property<bool>("CanAccessLocation")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("Machine")
+                    b.Property<bool>("CanAccessMachine")
                         .HasColumnType("bit");
 
                     b.Property<string>("RoleName")
@@ -230,32 +233,10 @@ namespace InternshipProjectMini.Migrations
 
                     b.HasKey("RoleId");
 
-                    b.ToTable("RoleViewModel");
+                    b.ToTable("Roles");
                 });
 
-            modelBuilder.Entity("InternshipProjectMini.Models.UserPermissions", b =>
-                {
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<bool>("Department")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("Employee")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("Location")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("Machine")
-                        .HasColumnType("bit");
-
-                    b.HasKey("UserId");
-
-                    b.ToTable("UserPermissions");
-                });
-
-            modelBuilder.Entity("InternshipProjectMini.Models.UserViewModel", b =>
+            modelBuilder.Entity("InternshipProjectMini.Models.User", b =>
                 {
                     b.Property<int>("UserId")
                         .ValueGeneratedOnAdd()
@@ -263,21 +244,9 @@ namespace InternshipProjectMini.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserId"));
 
-                    b.Property<bool>("DepartmentAccess")
-                        .HasColumnType("bit");
-
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("EmployeeAccess")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("LocationAccess")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("MachineAccess")
-                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -303,7 +272,29 @@ namespace InternshipProjectMini.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("UserViewModel");
+                    b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("InternshipProjectMini.Models.UserPermissions", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<bool>("Department")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("Employee")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("Location")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("Machine")
+                        .HasColumnType("bit");
+
+                    b.HasKey("UserId");
+
+                    b.ToTable("UserPermissions");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -461,6 +452,17 @@ namespace InternshipProjectMini.Migrations
                     b.Navigation("Location");
                 });
 
+            modelBuilder.Entity("InternshipProjectMini.Models.User", b =>
+                {
+                    b.HasOne("InternshipProjectMini.Models.Role", "Role")
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Role");
+                });
+
             modelBuilder.Entity("InternshipProjectMini.Models.UserPermissions", b =>
                 {
                     b.HasOne("InternshipProjectMini.Models.ApplicationUser", "User")
@@ -470,17 +472,6 @@ namespace InternshipProjectMini.Migrations
                         .IsRequired();
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("InternshipProjectMini.Models.UserViewModel", b =>
-                {
-                    b.HasOne("InternshipProjectMini.Models.RoleViewModel", "Role")
-                        .WithMany()
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Role");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

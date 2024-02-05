@@ -16,8 +16,9 @@ namespace InternshipProjectMini.Context
         public DbSet<Location> Locations { get; set; }
         public DbSet<Machine> Machines { get; set; }
         public DbSet<UserPermissions> UserPermissions { get; set; }
-        public DbSet<Role> Roles { get; set; }
-        public DbSet<User> Users {  get; set; }
+        public DbSet<RoleViewModel> RoleViewModel { get; set; }
+        public DbSet<UserViewModel> UserViewModel { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -32,5 +33,6 @@ namespace InternshipProjectMini.Context
                 .HasForeignKey<UserPermissions>(up => up.UserId)
                 .OnDelete(DeleteBehavior.Cascade);
         }
+  
     }
 }

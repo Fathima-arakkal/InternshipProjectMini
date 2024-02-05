@@ -119,6 +119,20 @@
                     <button type="submit">Locations</button>
                 </form>
             }
+
+            <!-- Views/YourView.cshtml -->
+            @if (User.IsInRole("Administrator"))
+            {
+                <button class="btn btn-primary">Admin Button</button>
+            }
+
+            @if (User.IsInRole("Manager"))
+            {
+                <button class="btn btn-primary">Manager Button</button>
+            }
+
+            <!-- Add more conditional buttons based on roles... -->
+
         </div>
     </div>
 </body>

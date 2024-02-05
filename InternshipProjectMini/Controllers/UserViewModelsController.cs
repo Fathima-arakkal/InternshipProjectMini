@@ -8,26 +8,25 @@ using Microsoft.EntityFrameworkCore;
 using InternshipProjectMini.Context;
 using InternshipProjectMini.Models;
 
-namespace InternshipProjectMini.Controllers
+namespace InternshipProjectMini
 {
-    public class UsersController : Controller
+    public class UserViewModelsController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public UsersController(ApplicationDbContext context)
+        public UserViewModelsController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: Users
+        // GET: UserViewModels
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Users.Include(u => u.Role);
+            var applicationDbContext = _context.UserViewModel.Include(u => u.Role);
             return View(await applicationDbContext.ToListAsync());
-            
         }
 
-        // GET: Users/Details/5
+        // GET: UserViewModels/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -35,41 +34,41 @@ namespace InternshipProjectMini.Controllers
                 return NotFound();
             }
 
-            var user = await _context.Users
+            var userViewModel = await _context.UserViewModel
                 .Include(u => u.Role)
                 .FirstOrDefaultAsync(m => m.UserId == id);
-            if (user == null)
+            if (userViewModel == null)
             {
                 return NotFound();
             }
 
-            return View(user);
+            return View(userViewModel);
         }
 
-        // GET: Users/Create
+        // GET: UserViewModels/Create
         public IActionResult Create()
         {
-            ViewData["RoleId"] = new SelectList(_context.Roles, "RoleId", "RoleId");
+            ViewData["RoleId"] = new SelectList(_context.RoleViewModel, "RoleId", "RoleId");
             return View();
         }
 
-        // POST: Users/Create
+        // POST: UserViewModels/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("UserId,Name,Email,PhoneNumber,Username,Password,RoleId")] User user)
+        public async Task<IActionResult> Create([Bind("UserId,Name,Email,PhoneNumber,Username,Password,RoleId,EmployeeAccess,LocationAccess,MachineAccess,DepartmentAccess")] UserViewModel userViewModel)
         {
-           
-                _context.Add(user);
+            
+                _context.Add(userViewModel);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             
-            ViewData["RoleId"] = new SelectList(_context.Roles, "RoleId", "RoleId", user.RoleId);
-            return View(user);
+            ViewData["RoleId"] = new SelectList(_context.RoleViewModel, "RoleId", "RoleId", userViewModel.RoleId);
+            return View(userViewModel);
         }
 
-        // GET: Users/Edit/5
+        // GET: UserViewModels/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -77,23 +76,23 @@ namespace InternshipProjectMini.Controllers
                 return NotFound();
             }
 
-            var user = await _context.Users.FindAsync(id);
-            if (user == null)
+            var userViewModel = await _context.UserViewModel.FindAsync(id);
+            if (userViewModel == null)
             {
                 return NotFound();
             }
-            ViewData["RoleId"] = new SelectList(_context.Roles, "RoleId", "RoleId", user.RoleId);
-            return View(user);
+            ViewData["RoleId"] = new SelectList(_context.RoleViewModel, "RoleId", "RoleId", userViewModel.RoleId);
+            return View(userViewModel);
         }
 
-        // POST: Users/Edit/5
+        // POST: UserViewModels/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("UserId,Name,Email,PhoneNumber,Username,Password,RoleId")] User user)
+        public async Task<IActionResult> Edit(int id, [Bind("UserId,Name,Email,PhoneNumber,Username,Password,RoleId,EmployeeAccess,LocationAccess,MachineAccess,DepartmentAccess")] UserViewModel userViewModel)
         {
-            if (id != user.UserId)
+            if (id != userViewModel.UserId)
             {
                 return NotFound();
             }
@@ -102,12 +101,12 @@ namespace InternshipProjectMini.Controllers
             {
                 try
                 {
-                    _context.Update(user);
+                    _context.Update(userViewModel);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!UserExists(user.UserId))
+                    if (!UserViewModelExists(userViewModel.UserId))
                     {
                         return NotFound();
                     }
@@ -118,11 +117,11 @@ namespace InternshipProjectMini.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["RoleId"] = new SelectList(_context.Roles, "RoleId", "RoleId", user.RoleId);
-            return View(user);
+            ViewData["RoleId"] = new SelectList(_context.RoleViewModel, "RoleId", "RoleId", userViewModel.RoleId);
+            return View(userViewModel);
         }
 
-        // GET: Users/Delete/5
+        // GET: UserViewModels/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -130,35 +129,35 @@ namespace InternshipProjectMini.Controllers
                 return NotFound();
             }
 
-            var user = await _context.Users
+            var userViewModel = await _context.UserViewModel
                 .Include(u => u.Role)
                 .FirstOrDefaultAsync(m => m.UserId == id);
-            if (user == null)
+            if (userViewModel == null)
             {
                 return NotFound();
             }
 
-            return View(user);
+            return View(userViewModel);
         }
 
-        // POST: Users/Delete/5
+        // POST: UserViewModels/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var user = await _context.Users.FindAsync(id);
-            if (user != null)
+            var userViewModel = await _context.UserViewModel.FindAsync(id);
+            if (userViewModel != null)
             {
-                _context.Users.Remove(user);
+                _context.UserViewModel.Remove(userViewModel);
             }
 
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool UserExists(int id)
+        private bool UserViewModelExists(int id)
         {
-            return _context.Users.Any(e => e.UserId == id);
+            return _context.UserViewModel.Any(e => e.UserId == id);
         }
     }
 }

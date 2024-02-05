@@ -1,4 +1,4 @@
-﻿@model IEnumerable<InternshipProjectMini.Models.Role>
+﻿@model IEnumerable<InternshipProjectMini.Models.RoleViewModel>
 
 @{
     ViewData["Title"] = "Index";
@@ -16,16 +16,16 @@
                 @Html.DisplayNameFor(model => model.RoleName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CanAccessMachine)
+                @Html.DisplayNameFor(model => model.Employee)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CanAccessDepartment)
+                @Html.DisplayNameFor(model => model.Location)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CanAccessEmployee)
+                @Html.DisplayNameFor(model => model.Machine)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CanAccessLocation)
+                @Html.DisplayNameFor(model => model.Department)
             </th>
             <th></th>
         </tr>
@@ -37,16 +37,16 @@
                 @Html.DisplayFor(modelItem => item.RoleName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.CanAccessMachine)
+                @Html.DisplayFor(modelItem => item.Employee)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.CanAccessDepartment)
+                @Html.DisplayFor(modelItem => item.Location)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.CanAccessEmployee)
+                @Html.DisplayFor(modelItem => item.Machine)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.CanAccessLocation)
+                @Html.DisplayFor(modelItem => item.Department)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.RoleId">Edit</a> |

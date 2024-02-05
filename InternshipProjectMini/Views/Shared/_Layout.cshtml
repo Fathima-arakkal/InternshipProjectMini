@@ -29,14 +29,6 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="ManagePermissions">Manage Permissions</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Role" asp-action="Index">Role Management</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Index">User Management</a>
-                        </li>
-
-                        
                     </ul>
                     <ul class="navbar-nav">
                         <li class="nav-item">
@@ -45,6 +37,16 @@
 
                     </ul>
 
+                </div>
+                <div class="role-selector">
+                    <label for="roleDropdown">Select Role:</label>
+                    <select id="roleDropdown" onchange="changeRole()">
+                        <option value="Administrator">Administrator</option>
+                        <option value="Manager">Manager</option>
+                        <option value="Developer">Developer</option>
+                        <option value="Maintainer">Maintainer</option>
+                        <!-- Add more roles as needed -->
+                    </select>
                 </div>
             </div>
         </nav>
@@ -60,6 +62,17 @@
             &copy; 2024 - InternshipProjectMini - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
+    <script>
+        function changeRole() {
+            var selectedRole = document.getElementById("roleDropdown").value;
+
+            // You can customize this URL based on your routing
+            var redirectUrl = '/Home/ChangeRole?role=' + selectedRole;
+
+            // Redirect to the action that will handle role change
+            window.location.href = redirectUrl;
+        }
+    </script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

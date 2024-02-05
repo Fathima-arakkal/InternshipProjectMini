@@ -1,4 +1,4 @@
-﻿@model InternshipProjectMini.Models.User
+﻿@model InternshipProjectMini.Models.UserViewModel
 
 @{
     ViewData["Title"] = "Details";
@@ -7,7 +7,7 @@
 <h1>Details</h1>
 
 <div>
-    <h4>User</h4>
+    <h4>UserViewModel</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
@@ -45,6 +45,30 @@
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Role.RoleId)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.EmployeeAccess)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.EmployeeAccess)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.LocationAccess)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.LocationAccess)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.MachineAccess)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.MachineAccess)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.DepartmentAccess)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.DepartmentAccess)
         </dd>
     </dl>
 </div>
