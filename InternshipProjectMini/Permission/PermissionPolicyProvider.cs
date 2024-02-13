@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Options;
+using System;
+using System.Threading.Tasks;
 
 namespace InternshipProjectMini.Permission
 {
@@ -25,6 +27,20 @@ namespace InternshipProjectMini.Permission
         }
 
         public Task<AuthorizationPolicy> GetFallbackPolicyAsync() => FallbackpolicyProvider.GetDefaultPolicyAsync();
-        
+
+        Task<AuthorizationPolicy?> IAuthorizationPolicyProvider.GetPolicyAsync(string policyName)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        Task<AuthorizationPolicy> IAuthorizationPolicyProvider.GetDefaultPolicyAsync()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        Task<AuthorizationPolicy?> IAuthorizationPolicyProvider.GetFallbackPolicyAsync()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

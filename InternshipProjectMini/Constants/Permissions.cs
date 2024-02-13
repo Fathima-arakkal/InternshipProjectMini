@@ -1,4 +1,6 @@
-﻿namespace InternshipProjectMini.Constants
+﻿using System.Collections.Generic;
+
+namespace InternshipProjectMini.Constants
 {
     public class Permissions
     {
@@ -12,6 +14,7 @@
                 $"Permissions.{module}.Delete",
             };
         }
+
         public static class Products
         {
             public const string View = "Permissions.Products.View";

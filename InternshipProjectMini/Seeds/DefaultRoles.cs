@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using InternshipProjectMini.Constants;
+using System.Threading.Tasks;
 
 namespace InternshipProjectMini.Seeds
 {

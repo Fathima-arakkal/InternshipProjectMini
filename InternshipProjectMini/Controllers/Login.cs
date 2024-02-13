@@ -1,6 +1,7 @@
 ﻿using InternshipProjectMini.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace InternshipProjectMini.Controllers
 {

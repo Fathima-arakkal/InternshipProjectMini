@@ -1,4 +1,7 @@
-﻿namespace InternshipProjectMini.Models
+﻿using System;
+using System.Collections.Generic;
+
+namespace InternshipProjectMini.Models
 {
     public class PermissionViewModel
     {

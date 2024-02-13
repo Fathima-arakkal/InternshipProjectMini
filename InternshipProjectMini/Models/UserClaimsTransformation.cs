@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace InternshipProjectMini.Models
 {
@@ -27,6 +28,11 @@ namespace InternshipProjectMini.Models
             }
 
             return principal;
+        }
+
+        Task<ClaimsPrincipal> IClaimsTransformation.TransformAsync(ClaimsPrincipal principal)
+        {
+            throw new System.NotImplementedException();
         }
     }
 

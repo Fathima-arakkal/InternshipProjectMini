@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using InternshipProjectMini.Models;
 using System.Linq;
+using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace InternshipProjectMini.Controllers
 {

@@ -16,5 +16,6 @@ namespace InternshipProjectMini.Models
 
         [Display(Name = "Remember me")]
         public bool RememberMe { get; set; }
+        public ApplicationUser Username { get; internal set; }
     }
 }
