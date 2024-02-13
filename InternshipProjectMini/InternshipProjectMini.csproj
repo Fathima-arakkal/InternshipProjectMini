@@ -7,12 +7,24 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Controllers\Controllers\**" />
+    <Compile Remove="Migrations\**" />
+    <Compile Remove="NewFolder\**" />
     <Compile Remove="Services\**" />
     <Compile Remove="Views\NewFolder\**" />
+    <Content Remove="Controllers\Controllers\**" />
+    <Content Remove="Migrations\**" />
+    <Content Remove="NewFolder\**" />
     <Content Remove="Services\**" />
     <Content Remove="Views\NewFolder\**" />
+    <EmbeddedResource Remove="Controllers\Controllers\**" />
+    <EmbeddedResource Remove="Migrations\**" />
+    <EmbeddedResource Remove="NewFolder\**" />
     <EmbeddedResource Remove="Services\**" />
     <EmbeddedResource Remove="Views\NewFolder\**" />
+    <None Remove="Controllers\Controllers\**" />
+    <None Remove="Migrations\**" />
+    <None Remove="NewFolder\**" />
     <None Remove="Services\**" />
     <None Remove="Views\NewFolder\**" />
   </ItemGroup>
@@ -26,6 +38,14 @@
     <Content Remove="Views\Shared\ManageRoles.cshtml" />
     <Content Remove="Views\Shared\ManageRolesPost.cshtml" />
     <Content Remove="wwwroot\js\timezone.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Views\Permission\Index.cshtml" />
+    <None Include="Views\Product\Index.cshtml" />
+    <None Include="Views\Roles\Index.cshtml" />
+    <None Include="Views\UserRoles\Index.cshtml" />
+    <None Include="Views\Users\Index.cshtml" />
   </ItemGroup>
 
   <ItemGroup>

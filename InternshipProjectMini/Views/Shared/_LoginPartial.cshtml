@@ -22,8 +22,8 @@
             @Html.AntiForgeryToken()
         </form>
 
-        <p>Hello, @User.Identity.Name!</p>
-        <p>Your role(s): @string.Join(", ", roles)</p>
+        @* <p>Hello, @User.Identity.Name!</p>
+        <p>Your role(s): @string.Join(", ", roles)</p> *@
 
         <!-- Display links/buttons based on user role -->
         @if (User.IsInRole("Administrator"))

@@ -8,6 +8,18 @@
         public bool Location { get; set; }
 
         public string SelectedPermissions { get; set; }
+
+        public string RoleId { get; set; }
+        public IList<RoleClaimsViewModel> RoleClaims { get; set; }
+    }
+    public class RoleClaimsViewModel
+    {
+        public String Type { get; set; }
+        public string Value { get; set; }
+        public bool Selected { get; set; }
+
     }
 
 }
+
+    
