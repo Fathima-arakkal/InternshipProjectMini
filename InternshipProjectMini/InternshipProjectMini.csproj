@@ -8,29 +8,20 @@
 
   <ItemGroup>
     <Compile Remove="Controllers\Controllers\**" />
-    <Compile Remove="Migrations\**" />
-    <Compile Remove="NewFolder\**" />
     <Compile Remove="Services\**" />
     <Compile Remove="Views\NewFolder\**" />
     <Content Remove="Controllers\Controllers\**" />
-    <Content Remove="Migrations\**" />
-    <Content Remove="NewFolder\**" />
     <Content Remove="Services\**" />
     <Content Remove="Views\NewFolder\**" />
     <EmbeddedResource Remove="Controllers\Controllers\**" />
-    <EmbeddedResource Remove="Migrations\**" />
-    <EmbeddedResource Remove="NewFolder\**" />
     <EmbeddedResource Remove="Services\**" />
     <EmbeddedResource Remove="Views\NewFolder\**" />
     <None Remove="Controllers\Controllers\**" />
-    <None Remove="Migrations\**" />
-    <None Remove="NewFolder\**" />
     <None Remove="Services\**" />
     <None Remove="Views\NewFolder\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Remove="Controllers\Login.cs" />
     <Compile Remove="Models\UserDataViewModel.cs" />
   </ItemGroup>
 

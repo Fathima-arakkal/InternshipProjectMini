@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InternshipProjectMini.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240202054302_Modified")]
-    partial class Modified
+    [Migration("20240213072638_InitialMigration")]
+    partial class InitialMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -210,9 +210,29 @@ namespace InternshipProjectMini.Migrations
                     b.ToTable("Machines");
                 });
 
+            modelBuilder.Entity("InternshipProjectMini.Models.RolePermission", b =>
+                {
+                    b.Property<string>("RoleName")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("AssignedModules")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserPermissionViewModelUserName")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("RoleName");
+
+                    b.HasIndex("UserPermissionViewModelUserName");
+
+                    b.ToTable("RolePermission");
+                });
+
             modelBuilder.Entity("InternshipProjectMini.Models.RoleViewModel", b =>
                 {
                     b.Property<string>("RoleId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<bool>("Department")
@@ -233,7 +253,17 @@ namespace InternshipProjectMini.Migrations
 
                     b.HasKey("RoleId");
 
-                    b.ToTable("Roles");
+                    b.ToTable("RoleViewModel");
+                });
+
+            modelBuilder.Entity("InternshipProjectMini.Models.UserPermissionViewModel", b =>
+                {
+                    b.Property<string>("UserName")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("UserName");
+
+                    b.ToTable("UserPermissionViewModel");
                 });
 
             modelBuilder.Entity("InternshipProjectMini.Models.UserPermissions", b =>
@@ -258,6 +288,18 @@ namespace InternshipProjectMini.Migrations
                     b.ToTable("UserPermissions");
                 });
 
+            modelBuilder.Entity("InternshipProjectMini.Models.UserRolesViewModel", b =>
+                {
+                    b.Property<string>("RoleName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("Selected")
+                        .HasColumnType("bit");
+
+                    b.ToTable("UserRolesViewModels");
+                });
+
             modelBuilder.Entity("InternshipProjectMini.Models.UserViewModel", b =>
                 {
                     b.Property<int>("UserId")
@@ -266,9 +308,21 @@ namespace InternshipProjectMini.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserId"));
 
+                    b.Property<bool>("DepartmentAccess")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("EmployeeAccess")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("LocationAccess")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("MachineAccess")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -294,7 +348,7 @@ namespace InternshipProjectMini.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("Users");
+                    b.ToTable("UserViewModel");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -452,6 +506,13 @@ namespace InternshipProjectMini.Migrations
                     b.Navigation("Location");
                 });
 
+            modelBuilder.Entity("InternshipProjectMini.Models.RolePermission", b =>
+                {
+                    b.HasOne("InternshipProjectMini.Models.UserPermissionViewModel", null)
+                        .WithMany("Roles")
+                        .HasForeignKey("UserPermissionViewModelUserName");
+                });
+
             modelBuilder.Entity("InternshipProjectMini.Models.UserPermissions", b =>
                 {
                     b.HasOne("InternshipProjectMini.Models.ApplicationUser", "User")
@@ -529,6 +590,11 @@ namespace InternshipProjectMini.Migrations
                 {
                     b.Navigation("UserPermissions")
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("InternshipProjectMini.Models.UserPermissionViewModel", b =>
+                {
+                    b.Navigation("Roles");
                 });
 #pragma warning restore 612, 618
         }
