@@ -1,16 +1,19 @@
 ﻿@model InternshipProjectMini.Models.ManageUserRolesViewModel
-<h3>Manage Role for @Model.UserId</h3>
-<br/>
+<h3>Manage Roles for @Model.UserId</h3>
+<br />
 <div class="card">
     <div id="viewAll" class="card-body table-responsive">
         <form asp-controller="userroles" method="post" asp-action="update" asp-route-id="@Model.UserId" class="d-inline">
-            <input asp-for="@Model.UserId" type="hidden"/>
-            <table class=" table table table-striped" id="userRolesTable">
+            <input asp-for="@Model.UserId" type="hidden" />
+            <table class="table table-striped" id="userRolesTable">
                 <thead>
                     <tr>
-                        <th>Role</th>
-                        <th>Status</th>
-
+                        <th>
+                            Role
+                        </th>
+                        <th>
+                            Status
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -18,24 +21,21 @@
                     {
                         <tr>
                             <td>
-                                <input asp-for="@Model.UserRoles[i].RoleName" type="hidden"/>
+                                <input asp-for="@Model.UserRoles[i].RoleName" type="hidden" />
                                 @Model.UserRoles[i].RoleName
                             </td>
                             <td>
-                                <div class=" form-check m-1">
-                                    <input asp-for="@Model.UserRoles[i].Selected" class="form-check-input"/>
-
+                                <div class="form-check m-1">
+                                    <input asp-for="@Model.UserRoles[i].Selected" class="form-check-input" />
                                 </div>
                             </td>
-
                         </tr>
-                        
                     }
                 </tbody>
-
             </table>
-            <div class="col-sm-12" style="padding:20px 20px 0px 0px">
-                <button type ="submit" id="save" class="btn bg=primary">
+            <div class="col-sm-12" style=" padding: 20px 20px 0px 0px">
+                <button type="submit" id="save" class="btn bg-primary">
+                    <i class="fa fa-check"></i>
                     Save
                 </button>
             </div>

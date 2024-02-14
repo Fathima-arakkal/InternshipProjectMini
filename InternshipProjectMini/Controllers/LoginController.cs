@@ -26,29 +26,33 @@ public class LoginController : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Login(LoginViewModel model, string returnUrl = null)
     {
-        if (ModelState.IsValid)
+        if (!ModelState.IsValid)
         {
-            var user = await _userManager.FindByEmailAsync(model.Email);
-
-            if (user != null && await _userManager.CheckPasswordAsync(user, model.Password))
-            {
-                await _signInManager.SignInAsync(user, isPersistent: model.RememberMe);
-
-                if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
-                {
-                    return Redirect(returnUrl);
-                }
-                else
-                {
-                    return RedirectToAction("Index", "Home");
-                }
-            }
-
-            ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+            return View(model);
         }
+
+        var user = await _userManager.FindByEmailAsync(model.Email);
+
+        if (user != null && await _userManager.CheckPasswordAsync(user, model.Password))
+        {
+            await _signInManager.SignInAsync(user, isPersistent: model.RememberMe);
+
+            if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
+            {
+                return Redirect(returnUrl);
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
+        }
+
+        ModelState.AddModelError(string.Empty, "Invalid login attempt.");
 
         return View(model);
     }
-
-  
 }
+
+
+
+

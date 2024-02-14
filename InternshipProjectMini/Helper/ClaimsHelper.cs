@@ -18,7 +18,6 @@ namespace InternshipProjectMini.Helpers
             {
                 allPermissions.Add(new RoleClaimsViewModel { Value = fi.GetValue(null).ToString(), Type = "Permissions" });
             }
-
         }
         public static async Task AddPermissionClaim(this RoleManager<IdentityRole> roleManager, IdentityRole role, string permission)
         {
@@ -27,6 +26,11 @@ namespace InternshipProjectMini.Helpers
             {
                 await roleManager.AddClaimAsync(role, new System.Security.Claims.Claim("Permission", permission));
             }
+        }
+
+        public static async Task RemoveClaimAsync(this RoleManager<IdentityRole> roleManager, IdentityRole role, System.Security.Claims.Claim claim)
+        {
+            await roleManager.RemoveClaimAsync(role, claim);
         }
     }
 }

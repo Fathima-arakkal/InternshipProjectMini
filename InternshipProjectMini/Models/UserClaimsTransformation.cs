@@ -29,11 +29,5 @@ namespace InternshipProjectMini.Models
 
             return principal;
         }
-
-        Task<ClaimsPrincipal> IClaimsTransformation.TransformAsync(ClaimsPrincipal principal)
-        {
-            throw new System.NotImplementedException();
-        }
     }
-
 }

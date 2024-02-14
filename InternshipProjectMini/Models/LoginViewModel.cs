@@ -4,18 +4,15 @@ namespace InternshipProjectMini.Models
 {
     public class LoginViewModel
     {
-        [Required]
-        [EmailAddress]
-        [Display(Name = "Email")]
+        [Required(ErrorMessage = "The Email field is required.")]
+        [EmailAddress(ErrorMessage = "Invalid Email address.")]
         public string Email { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "The Password field is required.")]
         [DataType(DataType.Password)]
-        [Display(Name = "Password")]
         public string Password { get; set; }
 
         [Display(Name = "Remember me")]
         public bool RememberMe { get; set; }
-        public ApplicationUser Username { get; internal set; }
     }
 }

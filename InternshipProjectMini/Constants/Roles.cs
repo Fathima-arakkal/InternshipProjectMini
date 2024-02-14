@@ -2,9 +2,8 @@
 {
     public enum Roles
     {
-        Administration,
-        Manager,
-        Developer,
-        Maintainer
+        SuperAdmin,
+        Admin,
+        Basic
     }
 }
