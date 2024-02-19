@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InternshipProjectMini.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240214060536_newww")]
-    partial class newww
+    [Migration("20240219044600_InitialMigration")]
+    partial class InitialMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -71,7 +71,6 @@ namespace InternshipProjectMini.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SelectedPermissions")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("TwoFactorEnabled")

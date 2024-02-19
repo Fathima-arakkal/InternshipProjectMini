@@ -1,4 +1,5 @@
-﻿using InternshipProjectMini.Context;
+﻿using InternshipProjectMini.Constants;
+using InternshipProjectMini.Context;
 using InternshipProjectMini.Permission;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
@@ -33,11 +34,41 @@ namespace InternshipProjectMini
                 .AddDefaultUI()
                 .AddDefaultTokenProviders();
 
-
             services.AddAuthorization(options =>
             {
-                options.AddPolicy("RequireSuperAdmin", policy =>
-                    policy.RequireRole("SuperAdmin"));
+                options.AddPolicy("RequireSuperAdmin", policy => policy.RequireRole("SuperAdmin"));
+
+                options.AddPolicy("EmployeePermissions", policy =>
+                {
+                    policy.RequireClaim(Permissions.Employee.Create);
+                    policy.RequireClaim(Permissions.Employee.Edit);
+                    policy.RequireClaim(Permissions.Employee.Details);
+                    policy.RequireClaim(Permissions.Employee.Delete);
+                });
+
+                options.AddPolicy("DepartmentPermissions", policy =>
+                {
+                    policy.RequireClaim(Permissions.Department.Create);
+                    policy.RequireClaim(Permissions.Department.Edit);
+                    policy.RequireClaim(Permissions.Department.Details);
+                    policy.RequireClaim(Permissions.Department.Delete);
+                });
+                options.AddPolicy("LocationPermissions", policy =>
+                {
+                    policy.RequireClaim(Permissions.Location.Create);
+                    policy.RequireClaim(Permissions.Location.Edit);
+                    policy.RequireClaim(Permissions.Location.Details);
+                    policy.RequireClaim(Permissions.Location.Delete);
+                });
+                options.AddPolicy("MachinePermissions", policy =>
+                {
+                    policy.RequireClaim(Permissions.Machine.Create);
+                    policy.RequireClaim(Permissions.Machine.Edit);
+                    policy.RequireClaim(Permissions.Machine.Details);
+                    policy.RequireClaim(Permissions.Machine.Delete);
+                });
+
+                
             });
 
             services.ConfigureApplicationCookie(options =>
@@ -51,9 +82,7 @@ namespace InternshipProjectMini
                 options.DefaultChallengeScheme = IdentityConstants.ApplicationScheme;
                 options.DefaultSignInScheme = IdentityConstants.ExternalScheme;
             })
-
-
-    .AddIdentityCookies(options => { });
+            .AddIdentityCookies(options => { });
 
             services.AddControllersWithViews();
         }
@@ -84,7 +113,6 @@ namespace InternshipProjectMini
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
-
         }
     }
 }

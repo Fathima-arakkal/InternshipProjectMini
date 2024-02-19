@@ -28,38 +28,7 @@ public class HomeController : Controller
         return JsonConvert.DeserializeObject<PermissionViewModel>(permissions);
     }
     
-    public IActionResult ChangeRole(string role)
-    {
-        
-        HttpContext.Session.SetString("UserRole", role);
-
-        // Redirect to the desired page after changing the role
-        return RedirectToAction("Index", "Home");
-    }
-    [Authorize(Roles = "Administrator")]
-    public IActionResult AdministratorPage()
-    {
-        return View();
-    }
-
-    [Authorize(Roles = "Developer")]
-    public IActionResult DeveloperPage()
-    {
-        return View();
-    }
-
-    [Authorize(Roles = "Manager")]
-    public IActionResult ManagerPage()
-    {
-        return View();
-    }
-
-    [Authorize(Roles = "Maintainer")]
-    public IActionResult MaintainerPage()
-    {
-        return View();
-    }
-
+   
     public IActionResult AccessDenied()
     {
         return View();

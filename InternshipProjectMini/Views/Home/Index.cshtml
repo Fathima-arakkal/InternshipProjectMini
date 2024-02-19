@@ -1,11 +1,8 @@
 ﻿@model HomeViewModel
 
-@{
-    ViewData["Title"] = "Home Page";
-}
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -17,6 +14,9 @@
             color: #333;
             margin: 0;
             padding: 0;
+            background-image: url(https://png.pngtree.com/background/20211215/original/pngtree-modern-simple-elegant-cool-gradient-cream-landing-page-website-background-picture-image_1455090.jpg); */ /* Replace with the correct path to your image
+            background-repeat: no-repeat;
+            background-size: 1720px; /* Adjust as needed */
         }
 
         .container {
@@ -67,7 +67,8 @@
                 white-space: nowrap;
                 will-change: box-shadow, transform;
                 font-size: 18px;
-                width: 100%; /* Make the buttons full width */
+                width: 100%;
+                /* Make the buttons full width */
             }
 
                 .navigation-links button:focus {
@@ -85,6 +86,7 @@
                 }
     </style>
 </head>
+
 <body>
     <div class="container">
         <div class="text-center">
@@ -119,21 +121,8 @@
                     <button type="submit">Locations</button>
                 </form>
             }
-
-            <!-- Views/YourView.cshtml -->
-            @if (User.IsInRole("Administrator"))
-            {
-                <button class="btn btn-primary">Admin Button</button>
-            }
-
-            @if (User.IsInRole("Manager"))
-            {
-                <button class="btn btn-primary">Manager Button</button>
-            }
-
-            <!-- Add more conditional buttons based on roles... -->
-
         </div>
     </div>
 </body>
+
 </html>

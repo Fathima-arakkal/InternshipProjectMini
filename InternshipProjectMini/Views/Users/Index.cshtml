@@ -2,6 +2,7 @@
 @model IEnumerable<IdentityUser>
 <h1>User List</h1>
 <br />
+
 <table class="table table-striped" id="userTable">
     <thead>
         <tr>
@@ -44,7 +45,7 @@
                             Action
                         </button>
                         <div class="dropdown-menu shadow animated--grow-in">
-                            <a style='margin-right:16px' asp-controller="userroles" asp-action="Index" asp-route-userId="@user.Id" class="dropdown-item">
+                            <a style='margin-right:16px' asp-controller="UserRoles" asp-action="Index" asp-route-userId="@user.Id" class="dropdown-item">
                                 <i class="fas fa-wrench"></i> Manage Roles
                             </a>
                         </div>
@@ -54,3 +55,6 @@
         }
     </tbody>
 </table>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

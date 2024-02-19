@@ -2,8 +2,8 @@
 {
     public class ModuleViewModel
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public bool IsSelected { get; set; }
+        public string ModuleName { get; set; }
+        public List<PermissionItemViewModel> Permissions { get; set; }
     }
 }
+  

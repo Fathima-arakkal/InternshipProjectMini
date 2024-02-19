@@ -1,21 +1,29 @@
 ﻿@using Microsoft.AspNetCore.Authorization
 @inject IAuthorizationService AuthorizationService
 @using InternshipProjectMini.Constants
+
 <h1>Product Management</h1>
 <br />
-@if ((AuthorizationService.AuthorizeAsync(User, Permissions.Products.Create)).Result.Succeeded)
+@{
+    var canCreate = (await AuthorizationService.AuthorizeAsync(User, Permissions.Employee.Create)).Succeeded;
+    var canView = (await AuthorizationService.AuthorizeAsync(User, Permissions.Employee.Details)).Succeeded;
+    var canEdit = (await AuthorizationService.AuthorizeAsync(User, Permissions.Employee.Edit)).Succeeded;
+    var canDelete = (await AuthorizationService.AuthorizeAsync(User, Permissions.Employee.Delete)).Succeeded;
+}
+
+@if (canCreate)
 {
     <button class="btn btn-success">Create</button>
 }
-@if ((AuthorizationService.AuthorizeAsync(User, Permissions.Products.View)).Result.Succeeded)
+@if (canView)
 {
     <button class="btn btn-info">View</button>
 }
-@if ((AuthorizationService.AuthorizeAsync(User, Permissions.Products.Edit)).Result.Succeeded)
+@if (canEdit)
 {
     <button class="btn btn-warning">Modify</button>
 }
-@if ((AuthorizationService.AuthorizeAsync(User, Permissions.Products.Delete)).Result.Succeeded)
+@if (canDelete)
 {
     <button class="btn btn-danger">Delete</button>
 }

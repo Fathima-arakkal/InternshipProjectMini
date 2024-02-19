@@ -7,20 +7,45 @@ namespace InternshipProjectMini.Constants
         public static List<string> GeneratePermissionsForModule(string module)
         {
             return new List<string>()
-        {
-            $"Permissions.{module}.Create",
-            $"Permissions.{module}.View",
-            $"Permissions.{module}.Edit",
-            $"Permissions.{module}.Delete",
-        };
+            {
+                $"{module}.Create",
+                $"{module}.View",
+                $"{module}.Edit",
+                $"{module}.Delete",
+            };
         }
-        public static class Products
+
+        public static class Employee
         {
-            public const string View = "Permissions.Products.View";
-            public const string Create = "Permissions.Products.Create";
-            public const string Edit = "Permissions.Products.Edit";
-            public const string Delete = "Permissions.Products.Delete";
+            public const string Create = "Employee.Create";
+            public const string Edit = "Employee.Edit";
+            public const string Details = "Employee.Details";
+            public const string Delete = "Employee.Delete";
         }
+
+        public static class Department
+        {
+            public const string Create = "Department.Create";
+            public const string Edit = "Department.Edit";
+            public const string Details = "Department.Details";
+            public const string Delete = "Department.Delete";
+        }
+
+        public static class Location
+        {
+            public const string Create = "Location.Create";
+            public const string Edit = "Location.Edit";
+            public const string Details = "Location.Details";
+            public const string Delete = "Location.Delete";
+        }
+
+        public static class Machine
+        {
+            public const string Create = "Machine.Create";
+            public const string Edit = "Machine.Edit";
+            public const string Details = "Machine.Details";
+            public const string Delete = "Machine.Delete";
+        }
+
     }
 }
-

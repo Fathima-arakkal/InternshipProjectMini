@@ -10,10 +10,5 @@ namespace InternshipProjectMini.Models
         public virtual UserPermissions UserPermissions { get; set; }
 
      
-
-      
-        
-
-
     }
 }

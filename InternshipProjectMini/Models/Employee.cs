@@ -7,6 +7,7 @@
         public string LastName { get; set; }
         public string EmployeeNumber { get; set; }
         public Gender Gender { get; set; }
+        
         public int DepartmentId { get; set; } 
         public virtual Department Department { get; set; }  
     }

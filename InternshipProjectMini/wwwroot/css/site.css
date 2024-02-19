@@ -20,3 +20,8 @@ html {
 body {
   margin-bottom: 60px;
 }
+body {
+    background-image: url('D:/internship demo/bgimg.jpg'); /* Replace with the path to your image */
+    background-repeat: no-repeat;
+    background-size: cover; /* Adjust as needed */
+}
