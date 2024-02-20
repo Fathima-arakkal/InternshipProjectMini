@@ -11,15 +11,11 @@ namespace InternshipProjectMini.Models
         public bool Location { get; set; }
 
         public string SelectedPermissions { get; set; }
-
         public string RoleId { get; set; }
-        public IList<RoleClaimsViewModel> RoleClaims { get; set; }
+        public List<RoleClaimsViewModel> RoleClaims { get; set; }
         public List<ModuleViewModel> Modules { get; set; }
-        public List<string> Roles { get; set; }
-       
+
     }
-
-
 
     public class RoleClaimsViewModel
     {
@@ -28,8 +24,6 @@ namespace InternshipProjectMini.Models
         public bool Selected { get; set; }
     }
 
-
-   
 
     public class PermissionItemViewModel
     {

@@ -27,11 +27,11 @@ public class HomeController : Controller
     {
         return JsonConvert.DeserializeObject<PermissionViewModel>(permissions);
     }
-    
-   
+
+
     public IActionResult AccessDenied()
     {
-        return View();
+        return View("AccessDenied");
     }
 
 }

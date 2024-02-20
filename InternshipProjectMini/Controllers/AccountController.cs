@@ -193,6 +193,9 @@ namespace InternshipProjectMini.Controllers
 
             return JsonConvert.SerializeObject(permissions);
         }
+       
+
+
         [HttpGet]
         [AllowAnonymous]
         public IActionResult AccessDenied()

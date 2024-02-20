@@ -43,6 +43,10 @@ namespace InternshipProjectMini.Controllers
                     }
                 }
                 model.RoleClaims = allPermissions;
+
+                // Grouping permissions by module
+                model.Modules = GetGroupedPermissions(roleId);
+
                 return View(model);
             }
 
@@ -70,6 +74,21 @@ namespace InternshipProjectMini.Controllers
                 }
 
                 return RedirectToAction("Index", new { roleId = model.RoleId });
+            }
+            private List<ModuleViewModel> GetGroupedPermissions(string roleId)
+            {
+                var allPermissions = new List<RoleClaimsViewModel>();
+                allPermissions.GetPermissions(typeof(Permissions.Employee), roleId);
+
+                // Grouping permissions by module
+                var groupedPermissions = allPermissions.GroupBy(p => p.Type)
+                                                      .Select(group => new ModuleViewModel
+                                                      {
+                                                          ModuleName = group.Key,
+                                                          Permissions = group.ToList()
+                                                      })
+                                                      .ToList();
+                return groupedPermissions;
             }
         }
     }

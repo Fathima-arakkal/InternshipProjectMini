@@ -4,11 +4,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading.Tasks;
-using InternshipProjectMini.Models;  // Import the ApplicationUser class
+using InternshipProjectMini.Models;
 
 namespace InternshipProjectMini.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "SuperAdmin")]
     public class UsersController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;

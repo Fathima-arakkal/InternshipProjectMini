@@ -1,7 +1,5 @@
 ﻿using InternshipProjectMini.Constants;
 using InternshipProjectMini.Context;
-using InternshipProjectMini.Permission;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -13,7 +11,6 @@ namespace InternshipProjectMini
 {
     public class Startup
     {
-        // Inject IConfiguration
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -23,20 +20,18 @@ namespace InternshipProjectMini
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSingleton<IAuthorizationPolicyProvider, PermissionPolicyProvider>();
-            services.AddScoped<IAuthorizationHandler, PermissionAuthorizationHandler>();
-
-            // Use Configuration property to access configuration
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddIdentity<IdentityUser, IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationDbContext>()
-                .AddDefaultUI()
-                .AddDefaultTokenProviders();
+                    .AddEntityFrameworkStores<ApplicationDbContext>()
+                    .AddDefaultUI()
+                    .AddDefaultTokenProviders();
+
 
             services.AddAuthorization(options =>
             {
-                options.AddPolicy("RequireSuperAdmin", policy => policy.RequireRole("SuperAdmin"));
+                options.AddPolicy("SuperAdminPolicy", policy => policy.RequireRole("SuperAdmin"));
+
 
                 options.AddPolicy("EmployeePermissions", policy =>
                 {
@@ -46,35 +41,14 @@ namespace InternshipProjectMini
                     policy.RequireClaim(Permissions.Employee.Delete);
                 });
 
-                options.AddPolicy("DepartmentPermissions", policy =>
-                {
-                    policy.RequireClaim(Permissions.Department.Create);
-                    policy.RequireClaim(Permissions.Department.Edit);
-                    policy.RequireClaim(Permissions.Department.Details);
-                    policy.RequireClaim(Permissions.Department.Delete);
-                });
-                options.AddPolicy("LocationPermissions", policy =>
-                {
-                    policy.RequireClaim(Permissions.Location.Create);
-                    policy.RequireClaim(Permissions.Location.Edit);
-                    policy.RequireClaim(Permissions.Location.Details);
-                    policy.RequireClaim(Permissions.Location.Delete);
-                });
-                options.AddPolicy("MachinePermissions", policy =>
-                {
-                    policy.RequireClaim(Permissions.Machine.Create);
-                    policy.RequireClaim(Permissions.Machine.Edit);
-                    policy.RequireClaim(Permissions.Machine.Details);
-                    policy.RequireClaim(Permissions.Machine.Delete);
-                });
-
-                
+                // Add other policies as needed
             });
 
             services.ConfigureApplicationCookie(options =>
             {
-                options.AccessDeniedPath = "/Account/AccessDenied";
+                options.AccessDeniedPath = "/Home/AccessDenied";
             });
+
 
             services.AddAuthentication(options =>
             {
@@ -101,6 +75,8 @@ namespace InternshipProjectMini
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+
+         
 
             app.UseRouting();
 
